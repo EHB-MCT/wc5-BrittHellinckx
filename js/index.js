@@ -9,9 +9,11 @@ const messageSystem = {
   sendMessage(msg) {
     // https://thecrew.cc/api/message/create.php?token=__TOKEN__ POST
     fetch('https://thecrew.cc/api/message/create.php?token=' + userSystem.token, {
-      method: 'POST',
-      body: JSON.stringify({ message: msg})
-    })
+        method: 'POST',
+        body: JSON.stringify({
+          message: msg
+        })
+      })
       .then(response => {
         return response.json();
       })
@@ -31,7 +33,8 @@ const messageSystem = {
                   console.error(data);
                 } else if (status == 200) {}*/
       .then((data) => {
-        data.sort((a, b) => b.ID - a.ID);
+        //data.sort((a, b) => b.ID - a.ID);
+        console.log(data);
         const outputField = document.getElementById('output');
         outputField.innerHTML = "";
 
@@ -100,10 +103,13 @@ const userSystem = {
 
   updateUser(password, handle) {
     // https://thecrew.cc/api/user/update.php?token=__TOKEN__ POST
-    fetch(`https://thecrew.cc/api/user/update.php?token=`+ userSystem.token, {
-      method: 'POST',
-      body: JSON.stringify({ handle, password})
-    })
+    fetch(`https://thecrew.cc/api/user/update.php?token=` + userSystem.token, {
+        method: 'POST',
+        body: JSON.stringify({
+          handle,
+          password
+        })
+      })
       .then(response => {
         return response.json();
       })
@@ -124,9 +130,9 @@ const display = {
     document.getElementById('logoutBtn').addEventListener('click', userSystem.logout);
     document.getElementById('messageForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const messageField =document.getElementById('messageField');
+      const messageField = document.getElementById('messageField');
       messageSystem.sendMessage(messageField.value);
-      messageField.value="";
+      messageField.value = "";
     });
   }
 };
